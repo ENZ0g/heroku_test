@@ -1,0 +1,45 @@
+body {
+    background: #80ced6;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    cursor: pointer;
+    text-align: center;
+}
+
+a {
+    margin: 30px;
+}
+
+a:hover {
+    color: #80ced6;
+    background: #d5f4e6;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+#col1:hover {
+    background: #d5f4e6;
+    border-radius: 3px;
+}
+
+img {
+    display:block;
+     margin:auto;
+    margin-bottom: 30px;
+}
+
+#about {
+    text-align: center;
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+h3{
+    text-align: center;
+}
