@@ -1,4 +1,4 @@
-url = 'http://localhost:8081/api/forecasts';
+url = 'http://localhost:8080/api/forecasts';
 
 function log_header_click() {
     $.getJSON(url, function (data) {

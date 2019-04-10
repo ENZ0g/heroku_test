@@ -3,8 +3,12 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-h1 {
+#header_click {
     cursor: pointer;
+    text-align: center;
+}
+
+h1 {
     text-align: center;
 }
 

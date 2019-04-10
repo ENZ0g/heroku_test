@@ -1,4 +1,4 @@
-from bottle import run, route, view, static_file
+from bottle import run, route, view, static_file, response
 import horoscope
 import os
 from datetime import datetime as dt
@@ -6,7 +6,7 @@ from datetime import datetime as dt
 
 @route('/api/forecasts')
 def forecasts():
-    bottle.response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Origin'] = '*'
     return {
         'predictions': horoscope.generate_prophecies(6, 2)
     }
@@ -15,13 +15,28 @@ def forecasts():
 @route("/")
 @view('index')
 def index():
-    return {'date': dt.now()}
+    month = ['*',
+             'января',
+             'февраля',
+             'марта',
+             'апреля',
+             'мая',
+             'июня',
+             'июля',
+             'августа',
+             'сентября',
+             'октября',
+             'ноября',
+             'декабря']
+    return {'day': dt.now().day,
+            'month': month[dt.now().month],
+            'year': dt.now().year}
 
 
 @route("/about")
 @view('about')
-def index():
-    pass
+def about():
+    return {'test': 3}
 
 
 @route('/static/<filename>')

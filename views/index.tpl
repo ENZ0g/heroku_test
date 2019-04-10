@@ -29,8 +29,8 @@
         <div class='container'>
             <div class='row'>
                 <div class="col-12">
-                    <h1 onclick="log_header_click()">
-                    Что день {{ date }} сегодня готовит?
+                    <h1 onclick="log_header_click()" id='header_click'>
+                    Что день {{ day }} {{ month }} {{ year }} года готовит?
                     </h1>
                 </div>
             </div>
@@ -74,5 +74,5 @@
         src="static/header_click.js">
     </script>
     <hr/>
-    <a href="about.html">О реализации</a>
+    <a href="about">О реализации</a>
 </html>

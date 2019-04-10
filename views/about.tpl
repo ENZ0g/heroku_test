@@ -71,7 +71,7 @@
         </div>
         
         <hr/>
-        <a href="index.html">
+        <a href="/">
         На главную страницу
         </a>
     </body>
