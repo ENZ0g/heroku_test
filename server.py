@@ -6,7 +6,6 @@ from datetime import datetime as dt
 
 @route('/api/forecasts')
 def forecasts():
-    response.headers['Access-Control-Allow-Origin'] = '*'
     return {
         'predictions': horoscope.generate_prophecies(6, 2)
     }
