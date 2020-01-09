@@ -6,7 +6,7 @@ from datetime import datetime as dt
 
 
 TOKEN = os.environ.get('TOKEN')
-CHAT_ID = os.environ.get('CHAT_ID')
+CHAT_ID = int(os.environ.get('CHAT_ID'))
 
 bot = telebot.TeleBot(TOKEN)
 
