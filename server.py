@@ -1,8 +1,21 @@
-from bottle import run, route, view, static_file, response
+from bottle import run, route, view, static_file, response, request
+import telebot
 import horoscope
 import os
 from datetime import datetime as dt
 
+
+TOKEN = os.environ.get('TOKEN')
+CHAT_ID = os.environ.get('CHAT_ID')
+
+bot = telebot.TeleBot(TOKEN)
+
+
+@route('/activity')
+def detect_client():
+    bot.send_message(CHAT_ID, request.headers.get('User-Agent'))
+    bot.send_message(CHAT_ID, request.environ.get('REMOTE_ADDR'))
+    
 
 @route('/api/forecasts')
 def forecasts():
