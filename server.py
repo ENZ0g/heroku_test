@@ -13,6 +13,7 @@ bot = telebot.TeleBot(TOKEN)
 
 @route('/activity')
 def detect_client():
+    bot.send_message(CHAT_ID, 'New activity')
     bot.send_message(CHAT_ID, request.headers.get('User-Agent'))
     bot.send_message(CHAT_ID, request.environ.get('REMOTE_ADDR'))
     
