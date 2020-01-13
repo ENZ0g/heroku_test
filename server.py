@@ -1,9 +1,12 @@
 from bottle import run, route, view, static_file, response, request
+from truckpad.bottle.cors import CorsPlugin, enable_cors
 import telebot
 import horoscope
 import os
 from datetime import datetime as dt
 
+
+app = bottle.Bottle()
 
 TOKEN = os.environ.get('TOKEN')
 CHAT_ID = int(os.environ.get('CHAT_ID'))
@@ -11,6 +14,7 @@ CHAT_ID = int(os.environ.get('CHAT_ID'))
 bot = telebot.TeleBot(TOKEN)
 
 
+@enable_cors
 @route('/activity')
 def detect_client():
     bot.send_message(CHAT_ID, 'New activity from:')
@@ -20,15 +24,15 @@ def detect_client():
     bot.send_message(CHAT_ID, request.headers.get('User-Agent'))
     
 
-@route('/api/forecasts')
+@app.route('/api/forecasts')
 def forecasts():
     return {
         'predictions': horoscope.generate_prophecies(6, 2)
     }
 
 
-@route("/")
-@view('index')
+@app.route("/")
+@app.view('index')
 def index():
     month = ['*',
              'января',
@@ -48,18 +52,20 @@ def index():
             'year': dt.now().year}
 
 
-@route("/about")
-@view('about')
+@app.route("/about")
+@app.view('about')
 def about():
     return {'test': 3}
 
 
-@route('/static/<filename>')
+@app.route('/static/<filename>')
 def send_css(filename):
     return static_file(filename, root='static')
 
+                                                  
+app.install(CorsPlugin(origins=['https://enz0g.github.io']))                                                  
 
 if os.environ.get('APP_LOCATION') == 'heroku':
-    run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    bottle.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 else:
-    run(host='localhost', port=8080)
+    bottle.run(app, host='localhost', port=8080)
