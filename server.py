@@ -15,6 +15,7 @@ bot = telebot.TeleBot(TOKEN)
 def detect_client():
     bot.send_message(CHAT_ID, 'New activity from:')
     bot.send_message(CHAT_ID, request.headers.get('Referer'))
+    bot.send_message(CHAT_ID, request.headers.get('Origin'))
     bot.send_message(CHAT_ID, request.environ.get('HTTP_X_FORWARDED_FOR'))
     bot.send_message(CHAT_ID, request.headers.get('User-Agent'))
     
