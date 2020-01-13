@@ -1,4 +1,4 @@
-from bottle import run, route, view, static_file, response, request
+from bottle import Bottle, run, view, static_file, request
 from truckpad.bottle.cors import CorsPlugin, enable_cors
 import telebot
 import horoscope
@@ -6,7 +6,7 @@ import os
 from datetime import datetime as dt
 
 
-app = bottle.Bottle()
+app = Bottle()
 
 TOKEN = os.environ.get('TOKEN')
 CHAT_ID = int(os.environ.get('CHAT_ID'))
@@ -32,7 +32,7 @@ def forecasts():
 
 
 @app.route("/")
-@app.view('index')
+@view('index')
 def index():
     month = ['*',
              'января',
@@ -53,7 +53,7 @@ def index():
 
 
 @app.route("/about")
-@app.view('about')
+@view('about')
 def about():
     return {'test': 3}
 
@@ -66,6 +66,6 @@ def send_css(filename):
 app.install(CorsPlugin(origins=['https://enz0g.github.io']))                                                  
 
 if os.environ.get('APP_LOCATION') == 'heroku':
-    bottle.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
 else:
-    bottle.run(app, host='localhost', port=8080)
+    run(app, host='localhost', port=8080)
