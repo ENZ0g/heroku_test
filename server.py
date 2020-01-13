@@ -15,7 +15,7 @@ bot = telebot.TeleBot(TOKEN)
 
 
 @enable_cors
-@route('/activity')
+@app.route('/activity')
 def detect_client():
     bot.send_message(CHAT_ID, 'New activity from:')
     bot.send_message(CHAT_ID, request.headers.get('Referer', 'direct_access'))
