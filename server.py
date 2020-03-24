@@ -20,12 +20,14 @@ bot = telebot.TeleBot(TOKEN)
 @app.route('/activity')
 def detect_client():
     ip = request.environ.get('HTTP_X_FORWARDED_FOR')
-    location = requests.get('https://api.ipgeolocation.io/ipgeo?apiKey=API_KEY&ip=ip&fields=city')
+    location = requests.get(f'https://api.ipgeolocation.io/ipgeo?apiKey={API_KEY}&ip={ip}&fields=city, isp, organization')
     bot.send_message(CHAT_ID, 'New activity from:')
     bot.send_message(CHAT_ID, f"REFERER: {request.headers.get('Referer', 'direct_access')}")
     bot.send_message(CHAT_ID, f"ORIGIN: {request.headers.get('Origin', 'no_origin')}")
     bot.send_message(CHAT_ID, f"IP: {ip}")
     bot.send_message(CHAT_ID, f"CITY: {location['city']}")
+    bot.send_message(CHAT_ID, f"ISP: {location['isp']}")
+    bot.send_message(CHAT_ID, f"ORGANIZATION: {location['organization']}")
     bot.send_message(CHAT_ID, f"USER_AGENT: {request.headers.get('User-Agent')}")
     
 
