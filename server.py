@@ -4,12 +4,14 @@ import telebot
 import horoscope
 import os
 from datetime import datetime as dt
+import requests
 
 
 app = Bottle()
 
 TOKEN = os.environ.get('TOKEN')
 CHAT_ID = int(os.environ.get('CHAT_ID'))
+API_KEY = os.environ.get('API_KEY')
 
 bot = telebot.TeleBot(TOKEN)
 
@@ -17,11 +19,14 @@ bot = telebot.TeleBot(TOKEN)
 @enable_cors
 @app.route('/activity')
 def detect_client():
+    ip = request.environ.get('HTTP_X_FORWARDED_FOR')
+    location = requests.get('https://api.ipgeolocation.io/ipgeo?apiKey=API_KEY&ip=ip&fields=city')
     bot.send_message(CHAT_ID, 'New activity from:')
-    bot.send_message(CHAT_ID, request.headers.get('Referer', 'direct_access'))
-    bot.send_message(CHAT_ID, request.headers.get('Origin', 'no_origin'))
-    bot.send_message(CHAT_ID, request.environ.get('HTTP_X_FORWARDED_FOR'))
-    bot.send_message(CHAT_ID, request.headers.get('User-Agent'))
+    bot.send_message(CHAT_ID, f"REFERER: {request.headers.get('Referer', 'direct_access')}")
+    bot.send_message(CHAT_ID, f"ORIGIN: {request.headers.get('Origin', 'no_origin')}")
+    bot.send_message(CHAT_ID, f"IP: {ip}")
+    bot.send_message(CHAT_ID, f"CITY: {location['city']}")
+    bot.send_message(CHAT_ID, f"USER_AGENT: {request.headers.get('User-Agent')}")
     
 
 @app.route('/api/forecasts')
